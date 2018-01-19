@@ -80,17 +80,31 @@ def draw_L(window, circle, r, c):
     and m and n are small, positive integers.
     """
     # ------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # Done: 2. Implement and test this function.
     #     The testing code is already written for you (above).
     # ------------------------------------------------------------------
     # NEED TO MAKE X STOP RUNNING AWAY AND MAKE MULTIPUL CIRCLES
+    x_original = circle.center.x
+    y_original = circle.center.y
+    radius = circle.radius
+    y = y_original
+    fill_color = circle.fill_color
     for k in range(r):
-        circle.center.y = circle.center.y + (2 * circle.radius)
-        circle.attach_to(window)
-        for j in range(c):
-            circle.center.x = circle.center.x + (2 * circle.radius)
-            circle.attach_to(window)
-            window.render(.5)
+        for j in range(3):
+            x = x_original + (2 * radius * j)
+            new_circle = rg.Circle(rg.Point(x, y), radius)
+            new_circle.fill_color = fill_color
+            new_circle.attach_to(window)
+            window.render(.02)
+        y = y + (2*radius)
+    for k in range(3):
+        for j in range(c + 3):
+            x = x_original + (2 * radius * j)
+            new_circle = rg.Circle(rg.Point(x, y), radius)
+            new_circle.fill_color = fill_color
+            new_circle.attach_to(window)
+            window.render(.02)
+        y = y + (2 * radius)
 
 
 
@@ -130,10 +144,23 @@ def draw_wall_on_right(rectangle, n, window):
     and n is a small, positive integer.
     """
     # ------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # Done: 3. Implement and test this function.
     #     The testing code is already written for you (above).
     # ------------------------------------------------------------------
-
+    center = rectangle.get_center()
+    width = rectangle.get_width()
+    height = rectangle.get_height()
+    center_y = center.y
+    for k in range(n):
+        center_x = center.x
+        for j in range(k + 1):
+            corner_1 = rg.Point(center_x + width/2, center_y + height/2)
+            corner_2 = rg.Point(center_x - width/2, center_y - height/2)
+            new_rect = rg.Rectangle(corner_1, corner_2)
+            new_rect.attach_to(window)
+            window.render(.01)
+            center_x = center_x - width
+        center_y = center_y + height
 
 # ----------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
